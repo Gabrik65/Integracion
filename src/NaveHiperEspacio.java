@@ -108,7 +108,7 @@ public class NaveHiperEspacio {
         // TODO: Invocar leerMatriz, calcular determinante, verificar y calcular la inversa, luego llamar a imprimirMatriz.
         int size = matrizSize(sc);
         double[][] matriz = matrizBuild(sc,"Matriz",size);
-        double det = determinante(a);
+        double det = determinante(matriz);
         if(det == 0){
             System.out.println("Matriz singular y sin inversa");
         }else{
