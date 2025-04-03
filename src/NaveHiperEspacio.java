@@ -117,11 +117,9 @@ public class NaveHiperEspacio {
                 for (int b = 0; b < size; b++) {
 
                     if ((a+b)%2 == 0) {
-                        inverseM[0][0] = matriz[a][b];
-
+                        inverseM[a][b] = matriz[size-a][size-b];
                     }else {
-                        inverseM[0][0] = matriz[a][b];
-
+                        inverseM[a][b] = -1*matriz[a][b];
                     }
                 }
             }
