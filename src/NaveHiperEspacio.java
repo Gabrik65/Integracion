@@ -50,7 +50,13 @@ public class NaveHiperEspacio {
         System.out.println("Matriz B");
         double[][] b = matrizBuild(scanner);
 
+        double[][] c = new double[2][2];
+        for (int i = 0; i < 2; i++) {
+            c[0][i] = a[0][i] + b[0][i];
+            c[1][i] = a[1][i] + b[1][i];
+        }
 
+        imprimirMatriz(c);
     }
 
     /**
@@ -114,20 +120,22 @@ public class NaveHiperEspacio {
         return a;
     }
 
-    public static double[][] matrizBuild(Scanner sc){
+    public static double[][] matrizBuild(Scanner sc) {
         int size = matrizSize(sc);
-            System.out.println("Matriz A");
+        System.out.println("Matriz A");
         double[][] matriz = new double[size][size];
         for (int a = 0; a < size; a++) {
-            for (int b = 0; b < size;b ++) {
+            for (int b = 0; b < size; b++) {
                 System.out.println("Fila " + a + " Columna " + b);
                 matriz[a][b] = sc.nextInt();
             }
         }
         return matriz;
     }
+
     public static int matrizSize(Scanner sc) {
-            System.out.println("Ingrese el tamaño de las matrices:");
+        System.out.println("Ingrese el tamaño de las matrices:");
         return sc.nextInt();
     }
+
 }
