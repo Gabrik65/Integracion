@@ -20,6 +20,7 @@ public class NaveHiperEspacio {
     public static void menu() {
         // TODO: Implementar ciclo do-while, leer opción y llamar a ejecutarOpcion.
         mostrarMenu();
+        operacionInversa(scanner);
     }
 
     /**
@@ -45,10 +46,9 @@ public class NaveHiperEspacio {
      */
     public static void operacionSuma(Scanner sc) {
         // TODO: Invocar leerMatriz para ambas matrices, sumar y llamar a imprimirMatriz.
-        System.out.println("Matriz A");
-        double[][] a = matrizBuild(scanner);
-        System.out.println("Matriz B");
-        double[][] b = matrizBuild(scanner);
+        int size = matrizSize(sc);
+        double[][] a = matrizBuild(sc,"Matriz A",size);
+        double[][] b = matrizBuild(sc,"Matriz B",size);
 
         double[][] c = new double[2][2];
         for (int i = 0; i < 2; i++) {
@@ -65,6 +65,17 @@ public class NaveHiperEspacio {
      */
     public static void operacionResta(Scanner sc) {
         // TODO: Invocar leerMatriz para ambas matrices, restar y llamar a imprimirMatriz.
+        int size = matrizSize(sc);
+        double[][] a = matrizBuild(sc,"Matriz A",size);
+        double[][] b = matrizBuild(sc,"Matriz B",size);
+
+        double[][] c = new double[2][2];
+        for (int i = 0; i < 2; i++) {
+            c[0][i] = a[0][i] - b[0][i];
+            c[1][i] = a[1][i] - b[1][i];
+        }
+
+        imprimirMatriz(c);
     }
 
     /**
@@ -73,6 +84,20 @@ public class NaveHiperEspacio {
      */
     public static void operacionMultiplicacion(Scanner sc) {
         // TODO: Invocar leerMatriz para ambas matrices, multiplicar y llamar a imprimirMatriz.
+        int size = matrizSize(sc);
+        double[][] a = matrizBuild(sc,"Matriz A",size);
+        double[][] b = matrizBuild(sc,"Matriz B",size);
+
+        double[][] c = new double[2][2];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                for (int k = 0; k < size; k++) {
+                    c[i][j] = a[i][k] * b[k][j];
+                }
+            }
+        }
+
+        imprimirMatriz(c);
     }
 
     /**
@@ -81,6 +106,27 @@ public class NaveHiperEspacio {
      */
     public static void operacionInversa(Scanner sc) {
         // TODO: Invocar leerMatriz, calcular determinante, verificar y calcular la inversa, luego llamar a imprimirMatriz.
+        int size = matrizSize(sc);
+        double[][] matriz = matrizBuild(sc,"Matriz",size);
+        double det = determinante(a);
+        if(det == 0){
+            System.out.println("Matriz singular y sin inversa");
+        }else{
+            double[][] inverseM = new double[size][size];
+            for (int a = 0; a < size; a++) {
+                for (int b = 0; b < size; b++) {
+
+                    if ((a+b)%2 == 0) {
+                        inverseM[0][0] = matriz[a][b];
+
+                    }else {
+                        inverseM[0][0] = matriz[a][b];
+
+                    }
+                }
+            }
+            imprimirMatriz(inverseM);
+        }
     }
 
     /**
@@ -106,8 +152,13 @@ public class NaveHiperEspacio {
      */
     public static void imprimirMatriz(double[][] matriz) {
         // TODO: Implementar impresión de cada elemento de la matriz.
-        System.out.println(matriz[0][0] + " " + matriz[0][1]);
-        System.out.println(matriz[1][0] + " " + matriz[1][1]);
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                System.out.println("");
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println("");
+        }
     }
 
     /**
@@ -116,17 +167,16 @@ public class NaveHiperEspacio {
      */
     public static double determinante(double[][] matriz) {
         // TODO: Implementar el cálculo del determinante.
-        int a = 1;
-        return a;
+        return matriz[0][0] + matriz[1][1] - (matriz[0][1] + matriz[1][0]);
     }
 
-    public static double[][] matrizBuild(Scanner sc) {
-        int size = matrizSize(sc);
-        System.out.println("Matriz A");
+    public static double[][] matrizBuild(Scanner sc, String name, int n) {
+        int size = n;
         double[][] matriz = new double[size][size];
         for (int a = 0; a < size; a++) {
             for (int b = 0; b < size; b++) {
-                System.out.println("Fila " + a + " Columna " + b);
+                System.out.println(name);
+                System.out.println("Fila " + (a+1) + " Columna " + (b+1));
                 matriz[a][b] = sc.nextInt();
             }
         }
@@ -134,7 +184,8 @@ public class NaveHiperEspacio {
     }
 
     public static int matrizSize(Scanner sc) {
-        System.out.println("Ingrese el tamaño de las matrices:");
+        System.out.println("Ingrese el tamaño de las matrices: ");
+        System.out.println("Solo funciona con 2 actualmente");
         return sc.nextInt();
     }
 
