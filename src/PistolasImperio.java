@@ -1,32 +1,53 @@
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PistolasImperio {
-        private static final int MAX_PISTOLAS = 100;
-        private static String[][] pistolas = new String[MAX_PISTOLAS][2]; // [ID, NombreSoldado]
-        private static int totalPistolas = 0;
-        private static Scanner scanner = new Scanner(System.in);
+    static String[][] gunList = new String[100][2];
+    static Scanner sc = new Scanner(System.in);
 
-        public static void main(String[] args) {
-            menu();
-            agregarPistola();
-            listarPistolas();
-            eliminarPistola();
-            listarPistolas();
-        }
+    public static void main(String[] args) {
+        menu();
+    }
 
-        /**
-         * Ejecuta el menú principal del programa y gestiona la interacción con el usuario.
-         */
-        public static void menu() {
-            // TODO: Implementar el código para gestionar la interacción con el usuario.
+    public static void menu() {
+        mostrarOpciones();
+        int opcion = obtenerOpcion();
+        switch(opcion){
+            case 1:
+                agregarPistola();
+                break;
+                case 2:
+                    eliminarPistola();
+                    break;
+                case 3:
+                    listarPistolas();
+                    break;
+                case 4:
+                    buscarPistola();
+                    break;
+                    case 5:
+                    System.exit(69);
+                    break;
+                    default:
+                        System.out.println("No es un número válido");
+                        menu();
         }
+    }
 
         /**
          * Muestra el menú principal con las opciones disponibles.
          */
         private static void mostrarOpciones() {
-            // TODO: Implementar el código para mostrar las opciones del menú en pantalla.
+            System.out.println("Menu Principal");
+            System.out.println("");
+            System.out.println("1- Agregar Pistola");
+            System.out.println("2- Eliminar Pistola");
+            System.out.println("3- Lista de Pistolas");
+            System.out.println("4- Buscar Pistola");
+            System.out.println("5- Salir");
+            System.out.println("Selecciona una opcion:");
         }
 
         /**
@@ -34,8 +55,16 @@ public class PistolasImperio {
          * @return La opción seleccionada.
          */
         private static int obtenerOpcion() {
-            return totalPistolas;
-            // TODO: Implementar la lectura y validación de la opción ingresada.
+            Scanner sc = new Scanner(System.in);
+            String nums = sc.next();
+            int number = 0;
+            try{
+                number = Integer.parseInt(nums);
+            }catch (NumberFormatException e) {
+                System.out.println("No es un número válido");
+                menu();
+            }
+            return number;
         }
 
         /**
@@ -50,17 +79,20 @@ public class PistolasImperio {
          * Agrega una nueva pistola al inventario, registrando su ID y el nombre del soldado.
          */
         private static void agregarPistola() {
-            int index = totalPistolas;
-            if(index < MAX_PISTOLAS){
-                System.out.println("Ingrese nombre de soldado");
-                String nombre = scanner.next();
-                String id = String.valueOf(index+1);
-                pistolas[index][0] = id;
-                pistolas[index][1] = nombre;
-                index += 1;
-                totalPistolas += 1;
-            }else{
-                System.out.println("Lista llena");
+            int bla = 0;
+            for (int i = 0; i < gunList.length-1; i ++)
+                if (gunList[i][0] != null) bla++;
+            if (bla < 100){
+                System.out.println("Ingrese ID de la pistola");
+                gunList[bla][0] = sc.next();
+                System.out.println("Ingrese Nombre del Soldado");
+                gunList[bla][1] = sc.next();
+                System.out.println("Pistola registrada");
+                System.out.println(gunList[bla][0] +" - "+ gunList[bla][1]);
+                menu();
+            }else {
+                System.out.println("No queda espacio en la lista");
+                menu();
             }
         }
 
@@ -68,24 +100,17 @@ public class PistolasImperio {
          * Elimina una pistola del inventario según su ID.
          */
         private static void eliminarPistola() {
-            // TODO: Implementar la lógica para eliminar una pistola del inventario.
-            System.out.println("Ingrese id a eliminar");
-            String identificacion = scanner.next();
-            if(!isInt(identificacion)){
-                System.out.println("ID invalida");
-                return;}
-            int id = Integer.parseInt(identificacion);
-            if((id < MAX_PISTOLAS) && (id > 0)) {
-                if(pistolas[id - 1][0] != null) {
-                    System.out.println(pistolas[id - 1][0] + " " + pistolas[id - 1][1] + " eliminado");
-                    pistolas[id - 1][0] = "";
-                    pistolas[id - 1][1] = "";
-                }else {
-                    System.out.println("Ningun soldado registrado en esta id");
+            System.out.println("Ingrese ID de la pistola a eliminar");
+            String ID = sc.next();
+            for (int i = 0; i < gunList.length; i++) {
+                if (Objects.equals(gunList[i][0], ID)){
+                    reordenarInventario(i);
+                    System.out.println("Pistola eliminada del registro");
+                    menu();
                 }
-            }else {
-                System.out.println("ID invalida");
             }
+            System.out.println("No existen pistolas con ID " + ID);
+            menu();
         }
 
         /**
@@ -94,26 +119,59 @@ public class PistolasImperio {
          */
         private static void reordenarInventario(int indice) {
             // TODO: Implementar la lógica para reorganizar el inventario después de una eliminación.
-            int contados = 0;
-            for(int i = 0; i<MAX_PISTOLAS; i++){
-                if (pistolas[i][0] != null || pistolas[i][1] != null){
-                    contados ++;
-
-                }
+            int count = indice;
+            for (int i = indice+1; i <gunList.length ; i++) {
+                gunList[i-1][0] = gunList[i][0];
+                gunList[i-1][1] = gunList[i][1];
+                count ++;
             }
+            gunList[count][0] = null;
+            gunList[count][1] = null;
+
         }
 
         /**
          * Muestra en pantalla todas las pistolas registradas en el inventario.
          */
         private static void listarPistolas() {
-            // TODO: Implementar la lógica para listar todas las pistolas registradas.
-            System.out.print("ID ");
+            System.out.print("  ID ");
             System.out.println("Nombre");
-            for (int i = 0; i < totalPistolas; i++){
-                System.out.print(pistolas[i][0] + "  ");
-                System.out.println(pistolas[i][1]);
+            if (gunList[0][0] == null){
+                System.out.println("No hay pistolas en la lista");
+                menu();
             }
+            for (int i = 0; i < gunList.length; i++){
+                if (gunList[i][0] == null){
+                    break;
+                }else {
+                    System.out.print((i+1) + ") ");
+                    System.out.print(gunList[i][0] + "  ");
+                    System.out.println(gunList[i][1]);
+                }
+            }
+            menu();
+        }
+
+        private static void buscarPistola(){
+            System.out.println("Ingrese ID de la pistola");
+            String search = sc.next();
+            String found = null;
+            for (int i = 0; i < gunList.length; i++) {
+                if (Objects.equals(gunList[i][0], search)) {
+                    found = gunList[i][0];
+                    System.out.print(i + ") ");
+                    System.out.print("ID: " + found + "  ");
+                    System.out.println("nombre: " + gunList[i][1]);
+                }else{
+                    break;
+                }
+
+            }
+            if (found == null) {
+                System.out.println("ID " + search + " no encontrada.");
+            }
+            menu();
+
         }
 
     public static boolean isInt(String str) {
