@@ -1,5 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Pa con agaua");
+        System.out.println("Pan con agua");
     }
 }
