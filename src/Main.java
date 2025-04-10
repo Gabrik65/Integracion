@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Scanner;
 
 public class Main {
@@ -29,6 +30,9 @@ public class Main {
         switch (opcion){
             case 1:
                 muestraFila(mat,1);
+                break;
+            case 2:
+                esCero(mat);
                 break;
             default:
                 System.out.println("No es una opcion válida");
@@ -90,9 +94,60 @@ public class Main {
         return mat;
     }
 
+    public static void selecionaFila(int[][] matriz, Scanner sc){
+        System.out.println("Ingrese la fila a buscar");
+        int num = validaFila(matriz, sc);
+        muestraFila(matriz,num);
+        menu(matriz);
+
+    }
+
+    public static int validaFila(int[][] matriz, Scanner sc){
+        String numero = sc.next();
+        int num = -1;
+        try {
+            num = Integer.parseInt(numero); // Intenta convertir el String a int
+        } catch (NumberFormatException e) {
+            System.out.println("No es un número válido");
+            menu(matriz);
+        }
+        if (num > matriz.length){
+            System.out.println("No es un número válido");
+            menu(matriz);
+        }
+        return num;
+    }
     public static void muestraFila(int[][] matriz,int fila){
         for (int i = 0; i < matriz.length; i++) {
             System.out.println(matriz[fila][i]);
+        }
+    }
+
+    public static void ceroCheck(int[][] matriz){
+        if (esCero(matriz)) {
+            System.out.println("La matriz es Cero");
+            menu(matriz);
+        }else{
+            System.out.println("La matriz no es Cero");
+            menu(matriz);
+        }
+    }
+    public static Boolean esCero(int[][] matriz){
+        int total = matriz.length * matriz[0].length;
+        int ceros = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j <matriz[0].length ; j++) {
+                if (matriz[i][j] == 0) {
+                    ceros ++;
+                }
+            }
+        }
+        double validacion = ceros / total;
+        if (validacion > 0.5){
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }
