@@ -6,26 +6,45 @@ public class Main {
     }
 
     public static void menu(){
-        String[][] size = sizeM();
+        Scanner sc = new Scanner(System.in);
+        String[][] size = sizeM(sc);
         int[][] mat = llenarMatriz(size);
+        showMenu();
+        pickedMenu(sc, mat);
     }
 
     public static void showMenu(){
         System.out.println("1) Mostrar fila");
+        System.out.println("Selecciona una opcion");
 
     }
 
-    public static void pickedMenu(int opcion){
+    public static void pickedMenu(Scanner sc, int[][] mat){
+        int opcion = obtenerOpcion();
         switch (opcion){
             case 1:
+                muestraFila(mat,1);
                 break;
             default:
                 System.out.println("No es una opcion válida");
                 showMenu();
         }
     }
-    public static String[][] sizeM(){
+
+    private static int obtenerOpcion() {
         Scanner sc = new Scanner(System.in);
+        String nums = sc.next();
+        int number = 0;
+        try{
+            number = Integer.parseInt(nums);
+        }catch (NumberFormatException e) {
+            System.out.println("No es un número válido");
+            menu();
+        }
+        return number;
+    }
+
+    public static String[][] sizeM(Scanner sc){
         System.out.println("Ingrese No de filas de matriz");
         int filas = getInt(sc);
         System.out.println("Ingrese No de columnas de matriz");
@@ -61,11 +80,14 @@ public class Main {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[0].length; j++) {
                 mat[i][j] = (int)(Math.random()*10);
-                System.out.println(mat[i][j]);
             }
         }
         return mat;
     }
 
-    public static void
+    public static void muestraFila(int[][] matriz,int fila){
+        for (int i = 0; i < matriz.length; i++) {
+            System.out.println(matriz[fila][i]);
+        }
+    }
 }
