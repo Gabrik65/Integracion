@@ -14,6 +14,7 @@ public class Main {
         int filas = getInt(sc);
         System.out.println("Ingrese No de columnas de matriz");
         int columnas = getInt(sc);
+        validarDimensiones(filas,columnas);
         return new String[filas][columnas];
     }
 
@@ -30,12 +31,21 @@ public class Main {
     }
 
     public static boolean validarDimensiones(int filas, int columnas){
-        if (filas != 0 && columnas != 0) {
+        if (filas > 0 && columnas > 0) {
             return true;
         }else {
             System.out.println("Datos no validos");
             menu();
             return false;
+        }
+    }
+
+    public static Integer[][] llenarMatriz(String[][] matriz){
+        int[][] mat = new int[matriz.length][matriz[0].length];
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                mat[i][j] = Math.random();
+            }
         }
     }
 }
