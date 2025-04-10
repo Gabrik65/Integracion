@@ -132,10 +132,10 @@ public class Main {
     public static boolean esCero(int[][] matriz){
         int total = matriz.length * matriz[0].length;
         int ceros = 0;
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j <matriz[0].length ; j++) {
-                if (matriz[i][j] == 0) {
-                    ceros ++;
+        for (int[] ints : matriz) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                if (ints[j] == 0) {
+                    ceros++;
                 }
             }
         }
