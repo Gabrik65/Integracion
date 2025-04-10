@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.Scanner;
 
 public class Main {
@@ -74,13 +73,10 @@ public class Main {
         return num;
     }
 
-    public static boolean validarDimensiones(int filas, int columnas){
-        if (filas > 0 && columnas > 0) {
-            return true;
-        }else {
+    public static void validarDimensiones(int filas, int columnas){
+        if (filas < 0 && columnas < 0) {
             System.out.println("Datos no validos");
             Start();
-            return false;
         }
     }
 
@@ -142,12 +138,7 @@ public class Main {
                 }
             }
         }
-        double validacion = ceros / total;
-        if (validacion > 0.5){
-            return true;
-        }
-        else {
-            return false;
-        }
+        double validacion = (double) ceros / total;
+        return validacion > 0.5;
     }
 }
