@@ -29,7 +29,7 @@ public class Main {
         int opcion = obtenerOpcion(mat);
         switch (opcion){
             case 1:
-                muestraFila(mat,1);
+                selecionaFila(mat, sc);
                 break;
             case 2:
                 ceroCheck(mat);
@@ -108,15 +108,15 @@ public class Main {
             System.out.println("No es un número válido");
             menu(matriz);
         }
-        if (num > matriz.length){
-            System.out.println("No es un número válido");
+        if (num > matriz.length || num <= 0){
+            System.out.println("Numero no valido");
             menu(matriz);
         }
         return num;
     }
     public static void muestraFila(int[][] matriz,int fila){
         for (int i = 0; i < matriz.length; i++) {
-            System.out.println(matriz[fila][i]);
+            System.out.println(matriz[fila-1][i]);
         }
     }
 

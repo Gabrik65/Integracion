@@ -2,9 +2,7 @@
 
 Los metodos a utilizar:
 -Metodo para crear la matriz
--Metodo de que valide el tamaño de la matriz en ancho
--Metodo que valide el tamaño de la matriz en alto
--Metodo que valide ambos
+-Metodo que valide tamaño de la matriz
 -Metodo para llenar la matriz de numeros
 -Metodo que seleccione una fila
 -Metodo que muestra una fila
