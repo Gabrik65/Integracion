@@ -9,6 +9,21 @@ public class Main {
         String[][] size = sizeM();
         int[][] mat = llenarMatriz(size);
     }
+
+    public static void showMenu(){
+        System.out.println("1) Mostrar fila");
+
+    }
+
+    public static void pickedMenu(int opcion){
+        switch (opcion){
+            case 1:
+                break;
+            default:
+                System.out.println("No es una opcion válida");
+                showMenu();
+        }
+    }
     public static String[][] sizeM(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese No de filas de matriz");
@@ -51,4 +66,6 @@ public class Main {
         }
         return mat;
     }
+
+    public static void
 }
