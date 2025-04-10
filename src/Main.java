@@ -19,6 +19,7 @@ public class Main {
 
     public static void showMenu(){
         System.out.println("1) Mostrar fila");
+        System.out.println("2) Ver si matriz es cero");
         System.out.println("Selecciona una opcion");
 
     }
@@ -31,7 +32,7 @@ public class Main {
                 muestraFila(mat,1);
                 break;
             case 2:
-                esCero(mat);
+                ceroCheck(mat);
                 break;
             default:
                 System.out.println("No es una opcion válida");
