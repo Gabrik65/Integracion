@@ -7,6 +7,7 @@ public class Main {
 
     public static void menu(){
         String[][] size = sizeM();
+        int[][] mat = llenarMatriz(size);
     }
     public static String[][] sizeM(){
         Scanner sc = new Scanner(System.in);
@@ -40,12 +41,14 @@ public class Main {
         }
     }
 
-    public static Integer[][] llenarMatriz(String[][] matriz){
+    public static int[][] llenarMatriz(String[][] matriz){
         int[][] mat = new int[matriz.length][matriz[0].length];
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[0].length; j++) {
-                mat[i][j] = Math.random();
+                mat[i][j] = (int)(Math.random()*10);
+                System.out.println(mat[i][j]);
             }
         }
+        return mat;
     }
 }
