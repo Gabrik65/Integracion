@@ -129,7 +129,7 @@ public class Main {
             menu(matriz);
         }
     }
-    public static Boolean esCero(int[][] matriz){
+    public static boolean esCero(int[][] matriz){
         int total = matriz.length * matriz[0].length;
         int ceros = 0;
         for (int i = 0; i < matriz.length; i++) {
