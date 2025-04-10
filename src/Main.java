@@ -2,15 +2,19 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        menu();
+        Start();
     }
 
-    public static void menu(){
+    public static void Start(){
         Scanner sc = new Scanner(System.in);
         String[][] size = sizeM(sc);
         int[][] mat = llenarMatriz(size);
+        menu(mat);
+    }
+
+    public static void menu(int[][] mat){
         showMenu();
-        pickedMenu(sc, mat);
+        pickedMenu(mat);
     }
 
     public static void showMenu(){
@@ -19,19 +23,20 @@ public class Main {
 
     }
 
-    public static void pickedMenu(Scanner sc, int[][] mat){
-        int opcion = obtenerOpcion();
+    public static void pickedMenu(int[][] mat){
+        Scanner sc = new Scanner(System.in);
+        int opcion = obtenerOpcion(mat);
         switch (opcion){
             case 1:
                 muestraFila(mat,1);
                 break;
             default:
                 System.out.println("No es una opcion válida");
-                showMenu();
+                menu(mat);
         }
     }
 
-    private static int obtenerOpcion() {
+    private static int obtenerOpcion(int[][] mat) {
         Scanner sc = new Scanner(System.in);
         String nums = sc.next();
         int number = 0;
@@ -39,7 +44,7 @@ public class Main {
             number = Integer.parseInt(nums);
         }catch (NumberFormatException e) {
             System.out.println("No es un número válido");
-            menu();
+            menu(mat);
         }
         return number;
     }
@@ -60,7 +65,7 @@ public class Main {
             num = Integer.parseInt(numero); // Intenta convertir el String a int
         } catch (NumberFormatException e) {
             System.out.println("No es un número válido");
-            menu();
+            Start();
         }
         return num;
     }
@@ -70,7 +75,7 @@ public class Main {
             return true;
         }else {
             System.out.println("Datos no validos");
-            menu();
+            Start();
             return false;
         }
     }
