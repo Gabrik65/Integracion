@@ -1,12 +1,11 @@
 package org.example;
 
-import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 
 public class Cajero {
 
     private static int saldo = 100000;
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         menu();
@@ -16,7 +15,7 @@ public class Cajero {
      * Ejecuta el menú principal del programa y gestiona la interacción con el usuario.
      */
     public static void menu() {
-        int n = -1;
+        int n;
         mostrarMenu();
         n = checkMenuOption(sc.next());
         if (n != -1) {
@@ -63,17 +62,18 @@ public class Cajero {
         }
     }
 
-    public static void retirarDinero(){
+    public static void retirarDinero() {
         System.out.println("Ingrese monto a retirar");
         int num = retirarCheckString(sc.next());
-        if (num != -1){
+        try {
+            if (num == -1) throw new IllegalArgumentException("Monto inválido");
             retirar(num);
-        }else{
-            System.out.println("Monto Invalido");
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            System.out.println(e.getMessage());
             menu();
         }
-
     }
+
 
     public static int retirarCheckString(String number){
         int num = stringToint(number);
@@ -85,41 +85,46 @@ public class Cajero {
     }
 
     public static void retirar(int monto) {
-        if(!multiplo1000(monto)){
-            System.out.println("Monto invalido");
-            retirarDinero();
+        if (!masque0(monto)) {
+            throw new IllegalArgumentException("El monto debe ser mayor que 0");
         }
-        if (montocomparasaldo(monto)){
-            saldo -= monto;
-        }else {
-            System.out.println("Saldo insuficiente");
-            menu();
+        if (!multiplo1000(monto)) {
+            throw new IllegalArgumentException("El monto debe ser múltiplo de 1000");
         }
+        if (!montocomparasaldo(monto)) {
+            throw new IllegalStateException("Saldo insuficiente para realizar el retiro");
+        }
+        saldo -= monto;
     }
 
-    public static void depositarDinero(){
+
+    public static void depositarDinero() {
         System.out.println("Ingrese monto a depositar");
         int num = retirarCheckString(sc.next());
-        if (num != -1){
+        try {
+            if (num == -1) throw new IllegalArgumentException("Monto inválido");
             depositar(num);
-        }else{
-            System.out.println("Monto Invalido");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
             menu();
         }
-
     }
+
+
     public static void depositar(int monto) {
-        if(multiplo1000(monto)){
-            depositarDinero();
-            saldo += monto;
-        }else {
-            System.out.println("Monto invalido");
-            menu();
+        if (!masque0(monto)) {
+            throw new IllegalArgumentException("El monto debe ser mayor que 0");
         }
+        if (!multiplo1000(monto)) {
+            throw new IllegalArgumentException("El monto debe ser múltiplo de 1000");
+        }
+
+        saldo += monto;
     }
 
-    public static void obtenerSaldo() {
-        System.out.println("Monto actual: " + saldo);
+
+    public static int obtenerSaldo() {
+        return saldo;
     }
 
     public static void reiniciarSaldo() {
