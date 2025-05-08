@@ -122,8 +122,10 @@ public class Cajero {
         saldo += monto;
     }
 
-
-    public static int obtenerSaldo() {
+    public static void obtenerSaldo(){
+        System.out.println("El saldo actual es" + saldo());
+    }
+    public static int saldo() {
         return saldo;
     }
 

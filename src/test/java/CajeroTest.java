@@ -13,7 +13,7 @@ class CajeroTest {
     @Test
     void testRetiroValido() {
         Cajero.retirar(10000);
-        assertEquals(90000, Cajero.obtenerSaldo());
+        assertEquals(90000, Cajero.saldo());
     }
 
     @Test
@@ -34,18 +34,18 @@ class CajeroTest {
     @Test
     void testRetiroExactoTotalDisponible() {
         Cajero.retirar(100000);
-        assertEquals(0, Cajero.obtenerSaldo());
+        assertEquals(0, Cajero.saldo());
     }
 
     @Test
     void testConsultarSaldo() {
-        assertEquals(100000, Cajero.obtenerSaldo());
+        assertEquals(100000, Cajero.saldo());
     }
 
     @Test
     void testDepositoValido() {
         Cajero.depositar(5000);
-        assertEquals(105000, Cajero.obtenerSaldo());
+        assertEquals(105000, Cajero.saldo());
     }
 
     @Test
