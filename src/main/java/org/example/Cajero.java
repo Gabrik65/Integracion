@@ -135,6 +135,6 @@ public class Cajero {
 
     public static boolean multiplo1000(int num){return num%1000 == 0;}
 
-    public static boolean montocomparasaldo(int num){return num < saldo;}
+    public static boolean montocomparasaldo(int num){return num <= saldo;}
 
 }
